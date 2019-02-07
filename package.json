@@ -1,5 +1,7 @@
 {
   "name": "Alexa_AWS_SDK_Test",
   "version": "1.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "aws-sdk": "2.398.0"
+  }
 }

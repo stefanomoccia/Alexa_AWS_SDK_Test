@@ -1,3 +1,4 @@
+// AWS_SDK 2.398.0
 var AWS = require('aws-sdk');
 var deviceName = "SmartHomePi";   //thing name from AWS IoT
 var host = "ahmugwdjfy1w4-ats.iot.eu-west-1.amazonaws.com"; //host address
