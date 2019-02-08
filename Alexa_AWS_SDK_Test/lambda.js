@@ -31,20 +31,18 @@ function testPublish()
 			ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
 		}
 	});
-
-	
-
-	return true;
-
 }
 function handleCustomIntents(intentName)
 {
 	// Dispatch to your skill's intent handlers
     var retValue = false;
-	
+	// ############################ TESTING ################################
 	//retValue = testPublish();
-	retValue = updateValuesToShadow();
-	//retValue = getValuesFromShadow();
+	updateReportedTestValuesToShadow();
+	updateDesiredTestValuesToShadow();
+	getValuesFromShadow();
+	retValue = true;
+	// ############################ END TESTING ################################
 
 	if ("BedroomLightOn" === intentName) {
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlighton', function(){
@@ -181,9 +179,8 @@ function handleCustomIntents(intentName)
 }
 
 
-function updateValuesToShadow()
+function updateDesiredTestValuesToShadow()
 {
-	var retValue = false;
 	var newStatus = 'ON';
 	var update = {
                 "state": {
@@ -201,18 +198,43 @@ function updateValuesToShadow()
 			} else {
 				console.log(data);
 				ctx.succeed('newStatus: ' + newStatus);
-				retValue = true;
 			}
+
 		}
 	);
-	return retValue;
+	
+	
+}
+
+function updateReportedTestValuesToShadow()
+{
+	var newStatus = 'ON';
+	var update = {
+                "state": {
+                   "reported" : {
+                        "status" : newStatus
+                    }
+                }
+            };
+	iotdata.updateThingShadow({
+    		payload: JSON.stringify(update),
+        	thingName: deviceName
+        }, function(err, data) {
+			if (err) {
+				ctx.fail(err);
+			} else {
+				console.log(data);
+				ctx.succeed('newStatus: ' + newStatus);
+			}
+
+		}
+	);
+	
 	
 }
 
 function getValuesFromShadow()
 {
-	var retValue = false;
-
 	iotdata.getThingShadow({
         thingName: deviceName
     }, function(err, data) {
@@ -244,10 +266,9 @@ function getValuesFromShadow()
                     context.fail(err);
                 } else {
                     console.log(data);
-                    context.succeed('newStatus: ' + newStatus);
+                    ctx.succeed('newStatus: ' + newStatus);
                 }
             });
-			retValue = true;
         }
     });
 }
