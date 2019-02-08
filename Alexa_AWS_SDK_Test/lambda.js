@@ -38,9 +38,9 @@ function handleCustomIntents(intentName)
     var retValue = false;
 	// ############################ TESTING ################################
 	retValue = testPublish();
-	//updateReportedTestValuesToShadow();
-	//updateDesiredTestValuesToShadow();
-	//getValuesFromShadow();
+	updateReportedTestValuesToShadow();
+	updateDesiredTestValuesToShadow();
+	getValuesFromShadow();
 	retValue = true;
 	// ############################ END TESTING ################################
 
