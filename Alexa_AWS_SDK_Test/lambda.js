@@ -32,6 +32,8 @@ function testPublish()
 		}
 	});
 
+	
+
 	return true;
 
 }
@@ -40,7 +42,9 @@ function handleCustomIntents(intentName)
 	// Dispatch to your skill's intent handlers
     var retValue = false;
 	
-	retValue = testPublish();
+	//retValue = testPublish();
+	retValue = updateValuesToShadow();
+	//retValue = getValuesFromShadow();
 
 	if ("BedroomLightOn" === intentName) {
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlighton', function(){
@@ -174,6 +178,78 @@ function handleCustomIntents(intentName)
 	}
 
 	return retValue;
+}
+
+
+function updateValuesToShadow()
+{
+	var retValue = false;
+	var newStatus = 'ON';
+	var update = {
+                "state": {
+                   "desired" : {
+                        "status" : newStatus
+                    }
+                }
+            };
+	iotdata.updateThingShadow({
+    		payload: JSON.stringify(update),
+        	thingName: deviceName
+        }, function(err, data) {
+			if (err) {
+				ctx.fail(err);
+			} else {
+				console.log(data);
+				ctx.succeed('newStatus: ' + newStatus);
+				retValue = true;
+			}
+		}
+	);
+	return retValue;
+	
+}
+
+function getValuesFromShadow()
+{
+	var retValue = false;
+
+	iotdata.getThingShadow({
+        thingName: deviceName
+    }, function(err, data) {
+        if (err) {
+            ctx.fail(err);
+        } else {
+            console.log(data);
+            var jsonPayload = JSON.parse(data.payload);
+            var status = jsonPayload.state.reported.status;
+            console.log('status: ' + status);
+            var newStatus;
+            if (status == 'ON') {
+                newStatus = 'OFF';
+            } else {
+                newStatus = 'ON';
+            }
+            var update = {
+                "state": {
+                   "desired" : {
+                        "status" : newStatus
+                    }
+                }
+            };
+            iotdata.updateThingShadow({
+                payload: JSON.stringify(update),
+                thingName: config.thingName
+            }, function(err, data) {
+                if (err) {
+                    context.fail(err);
+                } else {
+                    console.log(data);
+                    context.succeed('newStatus: ' + newStatus);
+                }
+            });
+			retValue = true;
+        }
+    });
 }
 
 
