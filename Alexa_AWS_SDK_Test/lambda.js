@@ -40,7 +40,7 @@ function handleCustomIntents(intentName)
 	//retValue = testPublish();
 	//updateReportedTestValuesToShadow();
 	//updateDesiredTestValuesToShadow();
-	getValuesFromShadow();
+	//getValuesFromShadow();
 	retValue = true;
 	// ############################ END TESTING ################################
 
