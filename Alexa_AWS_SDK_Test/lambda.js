@@ -251,24 +251,25 @@ function getValuesFromShadow()
             } else {
                 newStatus = 'ON';
             }
-            var update = {
-                "state": {
-                   "desired" : {
-                        "status" : newStatus
-                    }
-                }
-            };
-            iotdata.updateThingShadow({
-                payload: JSON.stringify(update),
-                thingName: config.thingName
-            }, function(err, data) {
-                if (err) {
-                    context.fail(err);
-                } else {
-                    console.log(data);
-                    ctx.succeed('newStatus: ' + newStatus);
-                }
-            });
+			ctx.succeed('newStatus: ' + newStatus);
+            // var update = {
+            //     "state": {
+            //        "desired" : {
+            //             "status" : newStatus
+            //         }
+            //     }
+            // };
+            // iotdata.updateThingShadow({
+            //     payload: JSON.stringify(update),
+            //     thingName: config.thingName
+            // }, function(err, data) {
+            //     if (err) {
+            //         context.fail(err);
+            //     } else {
+            //         console.log(data);
+            //         ctx.succeed('newStatus: ' + newStatus);
+            //     }
+            // });
         }
     });
 }
