@@ -37,7 +37,7 @@ function handleCustomIntents(intentName)
 	// Dispatch to your skill's intent handlers
     var retValue = false;
 	// ############################ TESTING ################################
-	//retValue = testPublish();
+	retValue = testPublish();
 	//updateReportedTestValuesToShadow();
 	//updateDesiredTestValuesToShadow();
 	//getValuesFromShadow();
