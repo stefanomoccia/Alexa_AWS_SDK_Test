@@ -363,10 +363,10 @@ function onSessionEnded(sessionEndedRequest, session) {
 function getWelcomeResponse() {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
-    var cardTitle = "Welcome";
-    var speechOutput = "Welcome to Pi Home Master . I can control your electrical appliances. Tell me what can I do for you. ";
+    var cardTitle = "Benenuto";
+    var speechOutput = "Benvenuto a casa Moccia. Io posso controllare le luci e la temperatura di casa. Dimmi cosa vuoi che io faccia.";
 
-    var repromptText = "I am ready for command.";
+    var repromptText = "Sono pronta a ricevere i comandi.";
     var shouldEndSession = false;
 
     ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
@@ -375,10 +375,10 @@ function getWelcomeResponse() {
 
 function getHelp() {
 	var sessionAttributes = {};
-    var cardTitle = "Help";
-    var speechOutput = "Welcome to pi home master, I can control your light and fan. " + 
-    "You can ask me by saying, turn on my bedroom light or turn off my bedroom fan.";
-    var repromptText = "Would you like to control your light or fan?";
+    var cardTitle = "Aiuto";
+    var speechOutput = "Benvenuto a casa Moccia. Io posso controllare le luci e la temperatura di casa. Dimmi cosa vuoi che io faccia." + 
+    "Mi puoi chiedere che temperatura c'è ora in casa o di accendere o spegnere il riscaldamento o ancora di accendere e spegnere le luci.";
+    var repromptText = "Vuoi sapere la temperatura?";
     var shouldEndSession = false;
 
     ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
@@ -386,8 +386,8 @@ function getHelp() {
 
 function handleSessionEndRequest() {
 	var sessionAttributes = {};
-    var cardTitle = "Session Ended";
-    var speechOutput = "Thank you for using pi home master, Have a nice day!";
+    var cardTitle = "Fine";
+    var speechOutput = "Grazie per aver deciso di usare Alexa per la tua casa. Buona giornata!";
     var shouldEndSession = true;
 	var repromptText = "";
     ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
