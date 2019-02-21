@@ -44,7 +44,8 @@ function handleCustomIntents(intentName)
 	retValue = true;
 	// ############################ END TESTING ################################
 
-	if ("BedroomLightOn" === intentName) {
+	if ("GetTemperature" === intentName) {
+		getValuesFromShadow();
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlighton', function(){
 			var cardTitle = "Bedroom Lamp on";
 			var repromptText = "";
@@ -57,7 +58,8 @@ function handleCustomIntents(intentName)
 		});*/
 		retValue = true;
 	
-    }else if ("BedroomLightOff" === intentName) {
+    }else if ("GetLights" === intentName) {
+		getValuesFromShadow();
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlightoff', function(){
 			var cardTitle = "Lamp on";
 			var repromptText = "";
@@ -233,8 +235,9 @@ function updateReportedTestValuesToShadow()
 	
 }
 
-function getValuesFromShadow()
+function getValuesFromShadow(req)
 {
+	var request = req
 	iotdata.getThingShadow({
         thingName: deviceName
     }, function(err, data) {
@@ -243,33 +246,18 @@ function getValuesFromShadow()
         } else {
             console.log(data);
             var jsonPayload = JSON.parse(data.payload);
-            var status = jsonPayload.state.reported.status;
-            console.log('status: ' + status);
-            var newStatus;
-            if (status == 'ON') {
-                newStatus = 'OFF';
-            } else {
-                newStatus = 'ON';
+            if(request === 'temp')
+			{
+				var value = jsonPayload.state.reported.temp;
+	            console.log('temp: ' + value);
+				ctx.succeed('temperature: ' + value);
             }
-			ctx.succeed('newStatus: ' + newStatus);
-            // var update = {
-            //     "state": {
-            //        "desired" : {
-            //             "status" : newStatus
-            //         }
-            //     }
-            // };
-            // iotdata.updateThingShadow({
-            //     payload: JSON.stringify(update),
-            //     thingName: config.thingName
-            // }, function(err, data) {
-            //     if (err) {
-            //         context.fail(err);
-            //     } else {
-            //         console.log(data);
-            //         ctx.succeed('newStatus: ' + newStatus);
-            //     }
-            // });
+			else if (request === 'humd')
+			{
+				var value = jsonPayload.state.reported.humd;
+	            console.log('humidity: ' + value);
+				ctx.succeed('humidity: ' + value);
+            }
         }
     });
 }
