@@ -254,7 +254,7 @@ function getValuesFromShadow(req)
 				var cardTitle = "TEMPERATURA :" + value;
 				var sessionAttributes = {};
 				var shouldEndSession = false;
-				var speechOutput = "La temperatura di casa è:" +value + "gradi centrigrdi";
+				var speechOutput = "La temperatura di casa è:" +value + "gradi centigradi";
 				var repromptText = "Vuoi continuare?";
 				ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
             }
