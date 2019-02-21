@@ -40,12 +40,11 @@ function handleCustomIntents(intentName)
 	retValue = testPublish();
 	updateReportedTestValuesToShadow();
 	updateDesiredTestValuesToShadow();
-	getValuesFromShadow();
 	retValue = true;
 	// ############################ END TESTING ################################
 
 	if ("GetTemperature" === intentName) {
-		getValuesFromShadow();
+		getValuesFromShadow('temp');
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlighton', function(){
 			var cardTitle = "Bedroom Lamp on";
 			var repromptText = "";
@@ -59,7 +58,7 @@ function handleCustomIntents(intentName)
 		retValue = true;
 	
     }else if ("GetLights" === intentName) {
-		getValuesFromShadow();
+		getValuesFromShadow('humd');
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlightoff', function(){
 			var cardTitle = "Lamp on";
 			var repromptText = "";
