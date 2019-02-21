@@ -57,7 +57,7 @@ function handleCustomIntents(intentName)
 		});*/
 		retValue = true;
 	
-    }else if ("GetLights" === intentName) {
+    }else if ("GetHumidity" === intentName) {
 		getValuesFromShadow('humd');
 		/*thingShadows.publish('taifur/test/pi/voice', 'Bedlightoff', function(){
 			var cardTitle = "Lamp on";
@@ -254,7 +254,7 @@ function getValuesFromShadow(req)
 				var cardTitle = "TEMPERATURA :" + value;
 				var sessionAttributes = {};
 				var shouldEndSession = false;
-				var speechOutput = "La temperatura di casa è:" +value;
+				var speechOutput = "La temperatura di casa è:" +value + "gradi centrigrdi";
 				var repromptText = "Vuoi continuare?";
 				ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
             }
@@ -265,7 +265,7 @@ function getValuesFromShadow(req)
 				var cardTitle = "UMIDITA' :" + value;
 				var sessionAttributes = {};
 				var shouldEndSession = false;
-				var speechOutput = "L'umidità di casa è:" +value;
+				var speechOutput = "L'umidità di casa è del:" +value + "percento";
 				var repromptText = "Vuoi continuare?";
 				ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
             }
