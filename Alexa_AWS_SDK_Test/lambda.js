@@ -251,13 +251,23 @@ function getValuesFromShadow(req)
 			{
 				var value = jsonPayload.state.reported.temp;
 	            console.log('temp: ' + value);
-				ctx.succeed('temperature: ' + value);
+				var cardTitle = "TEMPERATURA :" + value;
+				var sessionAttributes = {};
+				var shouldEndSession = false;
+				var speechOutput = "La temperatura di casa è:" +value;
+				var repromptText = "Vuoi continuare?";
+				ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
             }
 			else if (request === 'humd')
 			{
 				var value = jsonPayload.state.reported.humd;
 	            console.log('humidity: ' + value);
-				ctx.succeed('humidity: ' + value);
+				var cardTitle = "UMIDITA' :" + value;
+				var sessionAttributes = {};
+				var shouldEndSession = false;
+				var speechOutput = "L'umidità di casa è:" +value;
+				var repromptText = "Vuoi continuare?";
+				ctx.succeed(buildResponse(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession)));
             }
         }
     });
