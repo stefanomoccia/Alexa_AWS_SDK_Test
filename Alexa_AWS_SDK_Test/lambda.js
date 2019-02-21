@@ -37,10 +37,10 @@ function handleCustomIntents(intentName)
 	// Dispatch to your skill's intent handlers
     var retValue = false;
 	// ############################ TESTING ################################
-	retValue = testPublish();
-	updateReportedTestValuesToShadow();
-	updateDesiredTestValuesToShadow();
-	retValue = true;
+	//retValue = testPublish();
+	//updateReportedTestValuesToShadow();
+	//updateDesiredTestValuesToShadow();
+	//retValue = true;
 	// ############################ END TESTING ################################
 
 	if ("GetTemperature" === intentName) {
@@ -237,6 +237,7 @@ function updateReportedTestValuesToShadow()
 function getValuesFromShadow(req)
 {
 	var request = req
+	console.log(request);
 	iotdata.getThingShadow({
         thingName: deviceName
     }, function(err, data) {
@@ -245,7 +246,8 @@ function getValuesFromShadow(req)
         } else {
             console.log(data);
             var jsonPayload = JSON.parse(data.payload);
-            if(request === 'temp')
+            console.log(request);
+			if(request === 'temp')
 			{
 				var value = jsonPayload.state.reported.temp;
 	            console.log('temp: ' + value);
